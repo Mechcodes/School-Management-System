@@ -13,7 +13,7 @@ function ClassAnalytics() {
 
     const fetchData = async () => {
         try {
-            const response = await fetch(`/api/class/getByName/${name}`);
+            const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/class/getByName/${name}`);
             const data = await response.json();
             setClassData(data);
         } catch (error) {

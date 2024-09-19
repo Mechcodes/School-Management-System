@@ -29,7 +29,7 @@ function Table({ modelName }) {
   const handleDelete = async (lowerCaseModelName, id) => {
     if (window.confirm("Are you sure you want to delete this item?")) {
       try {
-        const res = await fetch(`/api/${lowerCaseModelName}/delete/${id}`, {
+        const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/${lowerCaseModelName}/delete/${id}`, {
           method: 'DELETE',
         });
         
@@ -59,7 +59,7 @@ function Table({ modelName }) {
   const fetchData = async () => {
     try {
       const lowerCaseModelName = modelName.toLowerCase();
-      const response = await fetch(`/api/${lowerCaseModelName}/get`);
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/${lowerCaseModelName}/get`);
       const data = await response.json();
 
       const rowsWithSelectedFields = data.map((row, index) => {

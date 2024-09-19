@@ -18,8 +18,8 @@ function ProfitAnalysis() {
 
     const fetchData = async () => {
         try {
-            const response = await fetch(`/api/teacher/getTeacherSalariesSum`);
-            const response2 = await fetch(`/api/student/getStudentFeesSum`);
+            const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/teacher/getTeacherSalariesSum`);
+            const response2 = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/student/getStudentFeesSum`);
             const data = await response.json();
             const data2 = await response2.json();
             setData(data.sum);
