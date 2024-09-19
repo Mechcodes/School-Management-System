@@ -17,7 +17,7 @@ const mongoURI = process.env.MONGO;
 mongoose.connect(mongoURI)
   .then(() => {
     console.log('Connected to MongoDB successfully!');   
-   // Improved success message
+   
   })
   .catch((err) => {
     console.error('Error connecting to MongoDB:', err);
@@ -29,8 +29,9 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
 
-app.listen(port,()=>{
+app.listen(port,(req,res)=>{
         console.log('Server is running on port 3000!')
+        
     }
 );
 
@@ -47,11 +48,6 @@ app.get('*', (req, res) => {
   })
 
 app.use((err,req,res,next)=>{
-    const statusCode=err.statusCode || 500;
-    const message=err.message || "Internal Server Error";
-    return res.status(statusCode).json({
-        success:false,
-        statusCode,
-        message,
-    })
+    // console.log(err);
+    return res.send("Server is Live")
 })
