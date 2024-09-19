@@ -48,6 +48,11 @@ app.get('*', (req, res) => {
   })
 
 app.use((err,req,res,next)=>{
-    // console.log(err);
-    return res.send("Server is Live")
+    const statusCode=err.statusCode || 500;
+    const message=err.message || "Internal Server Error";
+    return res.status(statusCode).json({
+        success:false,
+        statusCode,
+        message,
+    })
 })
