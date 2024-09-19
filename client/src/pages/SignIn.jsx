@@ -29,11 +29,16 @@ export default function SignIn() {
         body: JSON.stringify(formData),
       });
       const data = await res.json();
+
+      
       if (data.success === false) {
         dispatch(signInFailure(data.message));
         return;
       }
       dispatch(signInSuccess(data));
+      const accessToken = data.access_token; // Adjust based on your API response structure
+      console.log('Access Token:', accessToken);
+      localStorage.setItem('access_token', accessToken); 
       navigate('/');
     } catch (error) {
       dispatch(signInFailure(error.message));

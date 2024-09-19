@@ -18,8 +18,19 @@ function ProfitAnalysis() {
 
     const fetchData = async () => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/teacher/getTeacherSalariesSum`);
-            const response2 = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/student/getStudentFeesSum`);
+            const accessToken = localStorage.getItem('access_token');
+            const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/teacher/getTeacherSalariesSum`,{
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${accessToken}`,
+                  },
+            });
+            const response2 = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/student/getStudentFeesSum`,{
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${accessToken}`,
+                  },
+            });
             const data = await response.json();
             const data2 = await response2.json();
             setData(data.sum);

@@ -29,7 +29,14 @@ function UpdateForm({ modelName, id }) {
   const fetchModelSchema = async (id) => {
     // console.log("CALLING DATA");
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/${modelName.toLowerCase()}/getForm/${id}`);
+      const accessToken = localStorage.getItem('access_token');
+      // console.log("THIS IS ACCESS TOKEN HERE1 : ",accessToken)
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/${modelName.toLowerCase()}/getForm/${id}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`, // Pass the token in the header
+        },
+      });
       const data = await response.json();
       const regularFields = [];
       if(data.success==false){
@@ -55,8 +62,14 @@ function UpdateForm({ modelName, id }) {
   };
 
   const fetchExistingData = async (id) => {
+    const accessToken = localStorage.getItem('access_token');
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/${modelName.toLowerCase()}/get/${id}`);
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/${modelName.toLowerCase()}/get/${id}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`, // Pass the token in the header
+        },
+      });
       const data = await response.json();
       console.log("DATA COME", data)
       setFormData(data);
@@ -68,10 +81,12 @@ function UpdateForm({ modelName, id }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const accessToken = localStorage.getItem('access_token');
       const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/${modelName.toLowerCase()}/update/${id}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`,
         },
         body: JSON.stringify(formData),
       });

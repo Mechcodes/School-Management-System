@@ -14,5 +14,5 @@ router.get('/get/:id',authorize(['teacher','admin','student']),getStudent);
 router.get('/getIdByName/:name',authorize(['teacher','admin','student']),getIdByName);
 router.get('/getForm/:id',authorize(['teacher','admin','student']),getStudentsForm);
 router.get('/getForm',authorize(['teacher','admin','student']),getStudentsForm);
-router.get('/getStudentFeesSum',authorize(['teacher','admin','student']),getStudentFeesSum)
+router.get('/getStudentFeesSum',authorize(['teacher','admin']),getStudentFeesSum)
 export default router;

@@ -26,7 +26,14 @@ function DynamicForm({ modelName }) {
 
   const fetchModelSchema = async () => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/${modelName.toLowerCase()}/getForm`);
+      const accessToken = localStorage.getItem('access_token');
+      // console.log("THIS IS ACCESS TOKEN HERE2 : ",accessToken)
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/${modelName.toLowerCase()}/getForm`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`,
+        },
+      });
       const data = await response.json();
 
       const modelSchema = data[0];
@@ -53,10 +60,12 @@ function DynamicForm({ modelName }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const accessToken = localStorage.getItem('access_token');
       const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/${modelName.toLowerCase()}/create`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`,
         },
         body: JSON.stringify(formData),
       });

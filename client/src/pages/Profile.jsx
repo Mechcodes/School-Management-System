@@ -67,11 +67,13 @@ export default function Profile() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const accessToken = localStorage.getItem('access_token');
       dispatch(updateUserStart());
       const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/user/update/${currentUser._id}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`,
         },
         body: JSON.stringify(formData),
       });
@@ -90,9 +92,14 @@ export default function Profile() {
 
   const handleDeleteUser = async () => {
     try {
+      const accessToken = localStorage.getItem('access_token');
       dispatch(deleteUserStart());
       const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/user/delete/${currentUser._id}`, {
         method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`,
+        },
       });
       const data = await res.json();
       if (data.success === false) {
@@ -107,8 +114,14 @@ export default function Profile() {
 
   const handleSignOut = async () => {
     try {
+      const accessToken = localStorage.getItem('access_token');
       dispatch(signOutUserStart());
-      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/auth/signout`);
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/auth/signout`,{
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`,
+        },
+      });
       const data = await res.json();
       if (data.success === false) {
         dispatch(deleteUserFailure(data.message));

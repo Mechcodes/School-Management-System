@@ -29,8 +29,15 @@ function Table({ modelName }) {
   const handleDelete = async (lowerCaseModelName, id) => {
     if (window.confirm("Are you sure you want to delete this item?")) {
       try {
+        const accessToken = localStorage.getItem('access_token');
+        // console.log("THIS IS ACCESS TOKEN HERE3 : ",accessToken)
+
         const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/${lowerCaseModelName}/delete/${id}`, {
           method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`, 
+          },
         });
         
         let fetchRes = await res.json();
@@ -59,7 +66,14 @@ function Table({ modelName }) {
   const fetchData = async () => {
     try {
       const lowerCaseModelName = modelName.toLowerCase();
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/${lowerCaseModelName}/get`);
+      const accessToken = localStorage.getItem('access_token');
+      // console.log("THIS IS ACCESS TOKEN HERE4 : ",accessToken)
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/${lowerCaseModelName}/get`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`, 
+        },
+      });
       const data = await response.json();
 
       const rowsWithSelectedFields = data.map((row, index) => {

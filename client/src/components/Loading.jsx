@@ -26,7 +26,7 @@ function Loading() {
         </div>
        
         <div className="absolute inset-0 flex justify-center items-center z-0">
-          <div className="w-40 h-40 rounded-full border-4 border-blue-400 border-dotted animate-spin"></div>
+          <div className="w-40 h-40 rounded-full border-4 border-green-400 border-dotted animate-spin"></div>
         </div>
       </div>
     </div>
