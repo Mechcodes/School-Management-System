@@ -96,9 +96,9 @@ export const getTeachers = async (req, res, next) => {
   //     next(error);
   //   }
   // }
-
+  if (req.user.role === 'student') {
   try {
-    if (req.user.role === 'student') {
+    
       // Find the student by user ID
       const student = await Student.findOne({ userId: req.user.id });
       if (!student) {
@@ -121,19 +121,20 @@ export const getTeachers = async (req, res, next) => {
       const teachers = await Teacher.find({ _id: { $in: teacherIds } }).populate('assignedClass');
       // console.log("teacher ka jai",teachers);
       return res.status(200).json(teachers);
-    } else {
-      return res.status(403).json({ message: "Access denied" });
-    }
-  } catch (error) {
+    } 
+   catch (error) {
     next(error);
   }
-
+}
+  if (req.user.role == "teacher" || req.user.role == "admin" ) {
   try {
+    
     const Teachers = await Teacher.find().populate("assignedClass");
     return res.status(200).json(Teachers);
   } catch (error) {
     next(error);
   }
+}
 };
 
 

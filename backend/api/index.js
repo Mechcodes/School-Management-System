@@ -11,6 +11,8 @@ import cors from 'cors';
 import path from 'path';
 dotenv.config()
 
+const port = process.env.PORT || 3000;
+
 const mongoURI = process.env.MONGO;
 mongoose.connect(mongoURI)
   .then(() => {
@@ -27,7 +29,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
 
-app.listen(3000,()=>{
+app.listen(port,()=>{
         console.log('Server is running on port 3000!')
     }
 );
