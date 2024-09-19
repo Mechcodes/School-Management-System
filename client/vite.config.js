@@ -1,7 +1,8 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react-swc'
 
-const target = 'http://localhost:3000'
+// const target = 'http://localhost:3000'
+const target = 'https://school-management-system-backend-hlqh.onrender.com'
 
 // https://vitejs.dev/config/
 export default defineConfig({
