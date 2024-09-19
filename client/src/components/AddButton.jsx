@@ -7,11 +7,13 @@ function AddButton({ ModelName }) {
   const navigate = useNavigate();
 
   const handleAddButtonClick = () => {
+    
     navigate(`/${ModelName.toLowerCase()}/add-${ModelName.toLowerCase()}`);
   };
 
   return (
     <div className="flex justify-center p-4 mr-10 mt-5">
+      
       <Button  variant="contained" endIcon={<AddIcon />} onClick={handleAddButtonClick}>
         Add {ModelName}
       </Button>

@@ -13,6 +13,6 @@ router.get('/get',authorize(['teacher','admin','student']),getStudents);
 router.get('/get/:id',authorize(['teacher','admin','student']),getStudent);
 router.get('/getIdByName/:name',authorize(['teacher','admin','student']),getIdByName);
 router.get('/getForm/:id',authorize(['teacher','admin','student']),getStudentsForm);
-router.get('/getForm',authorize(['teacher','admin','student']),getStudentsForm);
+router.get('/getForm',authorize(['teacher','admin']),getStudentsForm);
 router.get('/getStudentFeesSum',authorize(['teacher','admin']),getStudentFeesSum)
 export default router;

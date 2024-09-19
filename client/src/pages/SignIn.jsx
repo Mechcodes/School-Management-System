@@ -36,7 +36,7 @@ export default function SignIn() {
         return;
       }
       dispatch(signInSuccess(data));
-      const accessToken = data.access_token; // Adjust based on your API response structure
+      const accessToken = data.access_token; 
       console.log('Access Token:', accessToken);
       localStorage.setItem('access_token', accessToken); 
       navigate('/');

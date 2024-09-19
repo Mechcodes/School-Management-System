@@ -1,6 +1,9 @@
 # School Management System APP
 
-A web-based school management application built using the MERN stack (MongoDB, Express.js, React.js, Node.js) with Tailwind CSS for styling. This application allows managing classes, teachers, and students in a school and provides analytics functionalities.
+It is a School CRM app for Teachers, Students and admin. Where
+students and teachers can see personal details and classroom details. Students
+can build their profile and see who are their teachers and what classes they are
+assigned. Teachers can build their profile and see who are the students they teach.
 
 ## Technologies Used
 - Frontend : React, MaterialUI, AG Charts

@@ -17,9 +17,8 @@ function UpdateForm({ modelName, id }) {
   const [errorMessage, setErrorMessage] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
   const [loading, setLoading] = useState(true);
-  // const [snackbarMessage, setSnackbarMessage] = useState('');
   const [openSnackbar, setOpenSnackbar] = useState(false);
-  const [snackbarType, setSnackbarType] = useState("success"); // "success" or "error"
+  const [snackbarType, setSnackbarType] = useState("success"); 
 
   useEffect(() => {
     fetchModelSchema(id);
@@ -27,36 +26,34 @@ function UpdateForm({ modelName, id }) {
   }, []);
 
   const fetchModelSchema = async (id) => {
+    
     // console.log("CALLING DATA");
     try {
       const accessToken = localStorage.getItem('access_token');
+      
       // console.log("THIS IS ACCESS TOKEN HERE1 : ",accessToken)
       const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/${modelName.toLowerCase()}/getForm/${id}`, {
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${accessToken}`, // Pass the token in the header
+          'Authorization': `Bearer ${accessToken}`, 
         },
-      });
-      const data = await response.json();
-      const regularFields = [];
-      if(data.success==false){
         
-        setErrorMessage(data.message);
-        setSnackbarType('error');
-        alert(data.message)
-        window.history.back();
-      }else{
+      });
 
-        Object.entries(data[0]).forEach(([fieldName]) => {
-          if (fieldName !== 'assignedClass' && fieldName !== 'class') {
-            regularFields.push([fieldName]);
-          }
-        });
-        setFields(regularFields);
-      }
+      const data = await response.json();
+      console.log("Update form call",data);
+      const regularFields = [];
+      
+      Object.entries(data[0]).forEach(([fieldName]) => {
+        if (fieldName !== 'assignedClass' && fieldName !== 'class') {
+          regularFields.push([fieldName]);
+        }
+      });
+      setFields(regularFields);
 
       setLoading(false); 
     } catch (error) {
+      
       console.error("Error fetching model schema:", error);
     }
   };
@@ -67,7 +64,7 @@ function UpdateForm({ modelName, id }) {
       const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/${modelName.toLowerCase()}/get/${id}`, {
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${accessToken}`, // Pass the token in the header
+          'Authorization': `Bearer ${accessToken}`, 
         },
       });
       const data = await response.json();
@@ -88,6 +85,7 @@ function UpdateForm({ modelName, id }) {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${accessToken}`,
         },
+
         body: JSON.stringify(formData),
       });
 
@@ -124,6 +122,7 @@ function UpdateForm({ modelName, id }) {
   };
 
   if (loading) {
+    
     return <Loading />; 
   }
 

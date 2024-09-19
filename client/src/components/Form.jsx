@@ -25,6 +25,7 @@ function DynamicForm({ modelName }) {
   }, []);
 
   const fetchModelSchema = async () => {
+    
     try {
       const accessToken = localStorage.getItem('access_token');
       // console.log("THIS IS ACCESS TOKEN HERE2 : ",accessToken)
@@ -34,8 +35,14 @@ function DynamicForm({ modelName }) {
           'Authorization': `Bearer ${accessToken}`,
         },
       });
+      
       const data = await response.json();
-
+      // console.log("FOrm call",data);
+      if(data.success==false){
+        alert(data.message)
+        window.history.back()
+        return;
+      }
       const modelSchema = data[0];
 
       if (!Object.keys(modelSchema).length) {
@@ -98,7 +105,9 @@ function DynamicForm({ modelName }) {
   };
 
   const handleCloseSnackbar = () => {
+
     setOpenSnackbar(false);
+    window.history.back();
   };
 
   if (loading) {

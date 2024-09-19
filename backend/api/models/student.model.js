@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const studentSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true
+    
   },
   userId:{
     type:mongoose.Schema.Types.ObjectId,
@@ -19,7 +19,7 @@ const studentSchema = new mongoose.Schema({
   },
   email: {
       type: String,
-      required: true,
+      
   },
   feesPaid: {
     type: Number,

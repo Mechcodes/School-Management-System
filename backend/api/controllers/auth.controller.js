@@ -6,24 +6,28 @@ import Student from '../models/student.model.js';
 import Teacher from '../models/teacher.model.js';
 
 export const signup = async (req, res, next) => {
-  const { username,role, email, password } = req.body;
+  // console.log(req.body); 
+  const { username, role, email, password } = req.body;
   const hashedPassword = bcryptjs.hashSync(password, 10);
-  const newUser = new User({ username,role, email, password: hashedPassword });
+  const newUser = new User({ username, role, email, password: hashedPassword });
   try {
     await newUser.save();
 
-    if(role=='student'){
-      const student = new Student({name:username,userId:newUser._id,email: email});
+    if (role === 'student') {
+      const student = new Student({ name: username, userId: newUser._id, email });
       await student.save();
-    }else if(role=='teacher'){
-      const teacher = new Teacher({name:username,userId:newUser._id,email: email});
+    } else if (role === 'teacher') {
+      const teacher = new Teacher({ name: username, userId: newUser._id, email });
       await teacher.save();
     }
-    res.status(201).json('User created successfully!');
+
+    return res.status(201).json({ success: true, message: 'User created successfully!' });
+    
   } catch (error) {
-    next(error);
+    return res.status(500).json({ success: false, message: error.message });
   }
 };
+
 
 export const signin = async (req, res, next) => {
   const { email, password } = req.body;

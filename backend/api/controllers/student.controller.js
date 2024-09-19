@@ -5,7 +5,8 @@ import { errorHandler } from '../utils/error.js';
 import User from '../models/user.model.js';
 
 export const createStudent = async (req, res, next) => {
-  console.log(req.body);
+  
+  // console.log(req.body);
   const { name,email} = req.body;
   const hashedPassword = bcryptjs.hashSync("12345", 10);
   const newUser = new User({ 
@@ -145,6 +146,8 @@ export const getIdByName = async (req, res, next) => {
   }
 };
 export const getStudentsForm = async (req, res, next) => {
+  // console.log('User Role in GetStudentsForm:', req.user.role); 
+  
   if(req.params.id==null){
     try {
       const students = await Student.find({}, { _id: 0,__v:0,createdAt:0,updatedAt:0,role:0,userId:0,});
@@ -153,11 +156,11 @@ export const getStudentsForm = async (req, res, next) => {
       next(error);
     }
   }
-  console.log(req.params);
+  // console.log(req.params);
   if (req.user.role == 'student') {
     const student = await Student.findOne({ _id: req.params.id });
-    console.log(req.user.id); 
-    console.log(req.params);
+    // console.log(req.user.id); 
+    // console.log(req.params);
     if(student == null || student.userId != req.user.id)
     return next(errorHandler(403, 'You can only update your own details'));
 }
